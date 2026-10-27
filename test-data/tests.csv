@@ -1,0 +1,33 @@
+/**
+  * Tries to fire the torpedo stores of the ship.
+  *
+  * @param firingMode how many torpedo bays to fire
+  *     SINGLE: fires only one of the bays.
+  *             - For the first time the primary store is fired.
+  *             - To give some cooling time to the torpedo stores torpedo stores are fired
+  *               alternating.
+  *             - But if the store next in line is empty the ship tries to fire the other
+  *               store.
+  *             - If the fired store reports a failure the ship does not try to fire the
+  *               other one.
+  *     ALL: tries to fire both of the torpedo stores.
+  *
+  * @return whether at least one torpedo was fired successfully
+  */
+
+
+
+#,Tesztelt követelmény,Előfeltételek (kiindulási állapot),A teszt lépései,Elvárt kimenet/eredmény
+1,SINGLE módban tüzelve az első tüzelés a primer tárolóból történik,Van legalább egy torpedó a primer tárolóban és nincs hibaráta,Tüzelünk egyet SINGLE módban,A torpedó parancs eredménye SUCCESS
+2,SINGLE módban tüzelve a második tüzelés a szekunder tárolóból történik,Van legalább egy-egy torpedó a primer és szekunder tárolókban és nincs hibarátájuk,Tüzelünk kettőt SINGLE módban,A torpedó parancs eredménye SUCCESS SUCCESS
+3,SINGLE módban tüzelve a második tüzelés a szekunder tárolóból történik de nincs benne torpedó,Van legalább két torpedó a primer tárolóban és nincs hibarátája nincs torpedó a szekunder tárolóban,Tüzelünk kettőt SINGLE módban,A torpedó parancs eredménye SUCCESS SUCCESS
+4,SINGLE módbal tüzelve az első tüzelés a primer tárolóból történik de nincs benne torpedó,Nincs torpedó a primer tárolóban és van legalább egy torpedó a szekunder tárolóban,Tüzelünk egyet SINGLE módban,A torpedó parancs eredménye SUCCESS
+5,SINGLE módban tüzelve az első tüzelés a primer tárolóból történik de nincs torpedó,Nincs torpedó a primer tárolóban és nincs torpedó a szekunder tárolóban,Tüzelünk egyet SINGLE módban,A torpedó parancs eredménye FAIL
+6,SINGLE módban tüzelve az első tüzelés a primer tárolóból történik de hibát jelez de van torpedó a szekunder tárolóban,Van legalább egy-egy torpedó a primer és szekunder tárolókban és maximális hibarátája van a primer tárolónak és van legalább egy torpedó a szekunder tárolóban,Tüzelünk egyet SINGLE módban,A torpedó parancs eredménye FAIL
+7,SINGLE módban tüzelve az első tüzelés a primer tárolóból történik de hibát jelez és nincs torpedó a szekunder tárolóban,Van legalább egy torpedó a primer tárolóban és maximális hibarátája van a primer tárolónak és nincs torpedó a szekunder tárolóban,Tüzelünk egyet SINGLE módban,A torpedó parancs eredménye FAIL
+8,ALL módban tüzelve mindkét tárolóból történik a tüzelés,Van legalább egy-egy torpedó a primer és szekunder tárolókban és nincs hibarátájuk,Tüzelünk egyet ALL módban,A torpedó parancs eredménye SUCCESS
+9,ALL módban tüzelve mindkét tárolóból történik a tüzelés de a primer tároló hibát jelez,Van legalább egy-egy torpedó a primer és szekunder tárolókban és maximális hibarátája van a primer tárolónak,Tüzelünk egyet ALL módban,A torpedó parancs eredménye SUCCESS
+10,ALL módban tüzelve mindkét tárolóból történik a tüzelés de mindkét tároló hibát jelez,Van legalább egy-egy torpedó a primer és szekunder tárolókban és maximális hibarátája van mindkét tárolónak,Tüzelünk egyet ALL módban,A torpedó parancs eredménye FAIL
+11,SINGLE módban tüzelve az első tüzelés a primer tárolóból történik de nincs torpedó,Nincs torpedó egyik tárolóban sem,Tüzelünk egyet SINGLE módban,A torpedó parancs eredménye FAIL
+12,ALL módban tüzelve mindkét tárolóból történik a tüzelés de nincs torpedó egyik tárolóban sem,Nincs torpedó egyik tárolóban sem,Tüzelünk egyet ALL módban,A torpedó parancs eredménye FAIL
+13,SINGLE módban tüzelve az első tüzelés a primer tárolóból történik de csak egy torpedó van,Van egy torpedó a primer tárolóban és nincs torpedó a szekunder tárolóban,Tüzelünk kettőt SINGLE módban,A torpedó parancs eredménye SUCCESS FAIL
